@@ -1,0 +1,17 @@
+transmission1.txt:
+mcode1.txt - true, start at position 165
+mcode2.txt - true, start at position 699
+mcode3.txt - true, start at position 60
+
+transmission2.txt:
+mcode1.txt - true, start at position 658
+mcode2.txt - true, start at position 406
+mcode3.txt - true, start at position 792
+
+transmission1.txt:
+mirrored code found, start at 415, ended at 523
+
+transmission2.txt:
+mirrored code found, start at 238, ended at 346
+
+the longest common substring between transmission1.txt and transmission2.txt is 238 characters long
