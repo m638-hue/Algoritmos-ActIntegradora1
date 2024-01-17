@@ -35,6 +35,7 @@ void PrefixArray(vector<int>& arr, string pattern)
 	}
 }
 
+//Mauro KMP
 void KMP(string main, string pattern)
 {
 	vector<int> prefix(0, pattern.length());
@@ -43,6 +44,10 @@ void KMP(string main, string pattern)
 
 }
 
+//Claudia Palindromos
+
+
+//AMBOS la subcadena mas larga
 int main()
 {
 
