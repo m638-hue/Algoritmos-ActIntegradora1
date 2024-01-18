@@ -126,6 +126,7 @@
     <Text Include="mcode2.txt" />
     <Text Include="mcode3.txt" />
     <Text Include="solution.txt" />
+    <Text Include="texto.txt" />
     <Text Include="transmission1.txt" />
     <Text Include="transmission2.txt" />
   </ItemGroup>
