@@ -39,8 +39,14 @@ void KMP(string main, string pattern)
 {
 	vector<int> prefix(0, pattern.length());
 	PrefixArray(prefix, pattern);
+	int n = main.length(), m = pattern.length(); 
+	int i = 0, j = 0;
 
-
+	while (i < n)
+	{
+		if (main[i] == pattern[j])
+			i++, j++;
+	}
 }
 
 int main()
