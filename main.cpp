@@ -9,9 +9,10 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 using namespace std;
 
-void PrefixArray(vector<int>& arr, string pattern)
+void LongestPrefixSufix(vector<int>& arr, string pattern)
 {
 	int length = 0;
 	arr[0] = 0;
@@ -37,10 +38,10 @@ void PrefixArray(vector<int>& arr, string pattern)
 }
 
 //Mauro KMP
-void KMP(string main, string pattern)
+int KMP(string main, string pattern)
 {
-	vector<int> prefix(0, pattern.length());
-	PrefixArray(prefix, pattern);
+	vector<int> lps(pattern.length(), 0);
+	LongestPrefixSufix(lps, pattern);
 	int n = main.length(), m = pattern.length(); 
 	int i = 0, j = 0;
 
@@ -48,7 +49,16 @@ void KMP(string main, string pattern)
 	{
 		if (main[i] == pattern[j])
 			i++, j++;
+		else
+		{
+			if (j == 0) i += 1;
+			else j = lps[j - 1];
+		}
+
+		if (j == m) return i - m;
 	}
+
+	return -1;
 }
 
 vector<char> expand(string texto) {
@@ -59,7 +69,6 @@ vector<char> expand(string texto) {
 	}
 	return nueva_cadena;
 }
-
 
 //Claudia Palindromos
 void palindromo(string texto) 
@@ -100,7 +109,7 @@ void palindromo(string texto)
 
 	int index = ((centerIndex - maxPalindromo) / 2);
 
-	cout << "mirrored code found, start at " << index << ", ended at " << maxPalindromo + index << endl;
+	cout << "mirrored code found, start at " << index << ", ended at " << maxPalindromo + index << endl << endl;
 
 }
 
@@ -131,18 +140,53 @@ void longestSubcadena(string transmision1, string transmision2) {
 	cout << "the longest common substring between transmission1.txt and transmission2.txt is " << maximum << " characters long" << endl;
 }
 
+string getfile(string name)
+{
+	ifstream file(name);
+	string res;
+	string temp;
 
+	while (getline(file, temp, '\n'))
+		res += temp;
+
+	return res;
+}
 
 //AMBOS la subcadena mas larga
 int main()
 {
-	string transmision1 = "3DB87592E2D933F1A1761D4D392D9CDD9851DE3B0044335D4C46983D16AA1AF6AC232FAFA20F6C21FAC9712D41C5CBB67D9AC397596B58D529E9A17E234BE30DE5ABB26E16FAA9324B8134766C14F11D6B81DB08074C51C45943EB33B7D596948000B08B7C8DD413D66B19FC0C2A2BEABEA6E216E93CD4F720915FE940270C32EFA325040A8306A2733C215728E241420F6346741F81623D66987FF97DCBE0DFF324A98B90CF3FC9551C416BE26D24C27E617EC0F8F27BBC1C95DF1C1793B5533B4AA1B99AB166D726C05DC655A0AF3533AA2DB358C21C9029253D65F22C3BB91DFF8262709190ED64FEEEEF46DE0919072628FFD19BB3C22F56D3529209C12C853BD2AA335720915FE940270C32EFA325040A8306A2733C215728E241420F6346741F81623D66987FF97DCBE0DFF324A98B90CF3FC9551C416BE26D24C27E617EC0F8F27BBC1C95DF1C1793B5533B4AA1B99AB166D726C05DC655A0AF3A56BE58E1A8457E05964B7AA1D6E159CAF784F659F9E68EB14FCC96D6CB8144B3B37BAD4963FA277CFCDCA07B1BF4E423069AEC7F21959118DE58EC3F82466696C20AF791926237A15F94CC34E7A4D4A96B352C7BFDD2583A7CE3827692A7650C042209EF6B2B356B24EA66108B7E07A0BC3C51BCCD703DB529F8F087CF5C70D2C0E21AED75DA38F52FD1F69B5E8CE5FB5DD67B3F0193998B86D7C6314";
-	string transmision2 = "A277CFCDCA07B1BF4E423069AEC7F21959118DE58EC3F82466696C20AF791926237A15F94CC34E7A4D4A96B352C7BFDD2583A7CE3827692A7650C042209EF6B2B356B24EA66108B7E07A0BC3C51BCCD703DB529F8F087CF5C70D2C0E21AED75DA38F52FD1F69B5E8CE5FB5DD67B3F0193998B86D7C6314533AA2DB358C21C9029253D65F22C3BB91DFF8262709190ED64FEEEEF46DE0919072628FFD19BB3C22F56D3529209C12C853BD2AA3353DB87592E2D933F1A1761D4D392D9CDD9851DE3B0044335D4C46983D16AAA56BE58E1A8457E05964B7AA1D6E159CAF784F659F9E68EB14FCC96D6CB8144B3B37BAD4963F720915FE940270C32EFA325040A8306A2733C215728E241420F6346741F81623D66987FF97DCBE0DFF324A98B90CF3FC9551C416BE26D24C27E617EC0F8F27BBC1C95DF1C1793B5533B4AA1B99AB166D726C05DC655A0AF3B08074C51C45943EB33B7D596948000B08B7C8DD413D66B19FC0C2A2BEABEA6E216E93CD4F3DB87592E2D933F1A1761D4D392D9CDD9851DE3B0044335D4C46983D16AA1AF6AC232FAFA20F6C21FAC9712D41C5CBB67D9AC397596B58D529E9A17E233DB87592E2D933F1A1761D4D392D9CDD9851DE3B0044335D4C46983D16AA";
+	vector<string> transmissions(2);
+	vector<string> codes(3);
+
+	transmissions[0] = getfile("transmission1.txt");
+	transmissions[1] = getfile("transmission2.txt");
+
+	codes[0] = getfile("mcode1.txt");
+	codes[1] = getfile("mcode2.txt");
+	codes[2] = getfile("mcode3.txt");
+
+	for (int i = 0; i < transmissions.size(); i++)
+	{
+		cout << "transmission" << i + 1 << ".txt:" << endl;
+
+		for (int j = 0; j < codes.size(); j++)
+		{
+			int match = KMP(transmissions[i], codes[j]);
+
+			cout << "mcode" << j + 1 << ".txt - ";
+			if (match != -1) cout << "true, start at position " << match << endl;
+			else cout << "false" << endl;
+		}
+
+		cout << endl;
+	}
+
+	cout << "transmission1.txt" << ":" << endl;
+	palindromo(transmissions[0]);
+	cout << "transmission2.txt" << ":" << endl;
+	palindromo(transmissions[1]);
 	
-	palindromo(transmision1);
-	palindromo(transmision2);
-	
-	longestSubcadena(transmision1, transmision2);
+	longestSubcadena(transmissions[0], transmissions[1]);
 
 	return 0;
 }

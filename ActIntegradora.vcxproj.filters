@@ -27,5 +27,6 @@
     <Text Include="transmission1.txt" />
     <Text Include="transmission2.txt" />
     <Text Include="texto.txt" />
+    <Text Include="mysolution.txt" />
   </ItemGroup>
 </Project>
