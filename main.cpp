@@ -2,7 +2,7 @@
 // File: main.cpp
 // Author:
 //     Mauro Martinez - A01282152
-//	   Claudia Torres - A01284940		
+//     Claudia Torres - A01284940		
 // Date: 
 // =========================================================
 
@@ -116,14 +116,14 @@ void longestSubcadena(string transmision1, string transmision2) {
 	for (int i = 0; i <= m; i++) {
 		for (int j = 0; j <= n; j++) {
 			if (i == 0 || j == 0) {
-				matrix[i][j] = 0; // Corregir índices
+				matrix[i][j] = 0; // Corregir Ã­ndices
 			}
-			else if (transmision1[i - 1] == transmision2[j - 1]) { // Corregir índices
-				matrix[i][j] = matrix[i - 1][j - 1] + 1; // Corregir índices
+			else if (transmision1[i - 1] == transmision2[j - 1]) { // Corregir Ã­ndices
+				matrix[i][j] = matrix[i - 1][j - 1] + 1; // Corregir Ã­ndices
 				maximum = max(maximum, matrix[i][j]);
 			}
 			else {
-				matrix[i][j] = 0; // Corregir índices
+				matrix[i][j] = 0; // Corregir Ã­ndices
 			}
 		}
 	}
